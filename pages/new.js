@@ -14,14 +14,29 @@ const NewNote = () => {
     useEffect(() => {
         if (isSubmitting) {
             if(Object.keys(errors).length === 0) {
-                // createNote();
-                alert('Success');
+                createNote();
             }
             else {
                 setIsSubmitting(false);
             }
         }
     },[errors]);
+
+    const createNote = async () => {
+        try {
+            const res = await fetch('http://localhost:3000/api/notes', {
+                method: 'POST',
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(form)
+            });
+            router.push('/');
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
