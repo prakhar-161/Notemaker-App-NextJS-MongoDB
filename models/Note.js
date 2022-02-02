@@ -5,7 +5,6 @@ const NoteSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please add a title'],
         unique: true,
-        trim: true,
         maxlength: [50, 'Title cannot be more than 50 characters']
     },
     description: {
@@ -15,6 +14,4 @@ const NoteSchema = new mongoose.Schema({
     }
 });
 
-const Note = mongoose.model('Note',NoteSchema);
-
-module.exports = Note;
+module.exports = mongoose.models.Note || mongoose.model('Note', NoteSchema)
